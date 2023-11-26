@@ -11,7 +11,7 @@ object SymbolsService {
 
     private const val BASE_URL = "https://api.apilayer.com/exchangerates_data/"
 
-    val instanceSymbol: ApiService by lazy {
+    val instance: ApiService by lazy {
 
         val apiKeyInterceptor = ApiKeyInterceptor(API_KEY)
 
