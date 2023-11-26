@@ -38,14 +38,22 @@ class MainActivity : AppCompatActivity() {
         findViewById(R.id.select_currency_state)
     }
 
+    private val mLoadCurrencyState: MaterialTextView by lazy {
+        findViewById(R.id.load_currency_state)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mLoadCurrencyState.visibility = View.VISIBLE
     }
 
     override fun onStart() {
         super.onStart()
+
         val context = this
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 ApiIdlingResource.increment()
@@ -59,6 +67,8 @@ class MainActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     val adapter = ArrayAdapter(context, R.layout.item_symbol, symbolsList)
                     mCurrencySelectLayout.setAdapter(adapter)
+
+                    mLoadCurrencyState.visibility = View.GONE
 
                     mSelectCurrencyState.visibility = View.VISIBLE
 
